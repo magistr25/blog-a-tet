@@ -6,8 +6,6 @@ import checkAuth from './utils/checkAuth.js';
 import * as UserController from './controllers/UserController.js'
 import * as PostController from './controllers/PostController.js'
 
-
-
 // const uri = "mongodb+srv://magistr25:123@cluster0.ns1uise.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const uri = "mongodb://localhost:27017/test"
 mongoose.connect(uri,
@@ -32,7 +30,7 @@ app.get('/auth/me', checkAuth, UserController.getMe)
 app.get('/posts', PostController.getAll)
 app.get('/posts/:id', PostController.getOne)
 app.post('/posts', checkAuth, postCreateValidation, PostController.create)
-// app.delete('/posts', PostController.remove)
+app.delete('/posts/:id', checkAuth, PostController.remove)
 //app.patch('/posts', PostController.update)
 
 app.listen(4444, (err) =>{
