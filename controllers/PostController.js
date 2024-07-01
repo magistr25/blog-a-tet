@@ -16,9 +16,9 @@ export const getOne = async (req, res) => {
         const postId = req.params.id;
 
         const post = await PostModel.findOneAndUpdate(
-            { _id: postId },
-            { $inc: { viewsCount: 1 } },
-            { new: true }
+            {_id: postId},
+            {$inc: {viewsCount: 1}},
+            {new: true}
         );
 
         if (!post) {
@@ -41,7 +41,7 @@ export const remove = async (req, res) => {
         const postId = req.params.id;
 
         const deletedPost =
-            await PostModel.findOneAndDelete({ _id: postId });
+            await PostModel.findOneAndDelete({_id: postId});
 
         if (!deletedPost) {
             return res.status(404).json({
@@ -59,6 +59,29 @@ export const remove = async (req, res) => {
     }
 };
 
+export const update = async (req, res) => {
+    try {
+        const postId = req.params.id;
+        await PostModel.updateOne({
+                _id: postId,
+            }, {
+                title: req.body.title,
+                text: req.body.text,
+                imageUrl: req.body.imageUrl,
+                tags: req.body.tags,
+                user: req.userId,
+            },
+        );
+        res.json({
+            success: true,
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Error updating post',
+        })
+    }
+}
 
 export const create = async (req, res) => {
     try {
