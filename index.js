@@ -51,8 +51,8 @@ app.post('/upload', checkAuth, upload.single('image'),
 app.get('/posts', PostController.getAll)
 app.get('/posts/:id', PostController.getOne)
 app.delete('/posts/:id', checkAuth, PostController.remove)
-app.patch('/posts/:id', checkAuth, postCreateValidation, PostController.update)
-app.post('/posts', checkAuth, postCreateValidation, PostController.create)
+app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update)
+app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create)
 
 app.use((req, res, next) => {
     res.setHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' data: http://localhost:4444; script-src 'self'; style-src 'self'");
