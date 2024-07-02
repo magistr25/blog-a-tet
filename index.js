@@ -1,12 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import {registerValidation, loginValidation, postCreateValidation} from "./validations.js";
-import checkAuth from './utils/checkAuth.js';
+import { registerValidation, loginValidation, postCreateValidation } from "./validations.js";
+import { checkAuth, handleValidationErrors } from './utils/index.js';
 
-import * as UserController from './controllers/UserController.js'
-import * as PostController from './controllers/PostController.js'
+import { UserController, PostController } from './controllers/index.js';
+
 import multer from "multer";
-import handleValidationErrors from "./utils/handleValidationErrors.js";
+
 
 // const uri = "mongodb+srv://magistr25:123@cluster0.ns1uise.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const uri = "mongodb://localhost:27017/test"
@@ -38,7 +38,7 @@ app.use('/uploads', express.static('uploads') )
 // })
 
 app.post('/auth/login', loginValidation, handleValidationErrors,  UserController.login);
-app.post('/auth/register/', loginValidation, handleValidationErrors, UserController.register);
+app.post('/auth/register/', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe)
 
 app.post('/upload', checkAuth, upload.single('image'),
