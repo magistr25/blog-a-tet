@@ -6,7 +6,7 @@ import { checkAuth, handleValidationErrors } from './utils/index.js';
 import { UserController, PostController } from './controllers/index.js';
 
 import multer from "multer";
-
+import cors from 'cors';
 
 // const uri = "mongodb+srv://magistr25:123@cluster0.ns1uise.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const uri = "mongodb://localhost:27017/test"
@@ -31,6 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
+app.use(cors())
 app.use('/uploads', express.static('uploads') )
 
 // app.get('/', (req, res) => {
@@ -40,7 +41,6 @@ app.use('/uploads', express.static('uploads') )
 app.post('/auth/login', loginValidation, handleValidationErrors,  UserController.login);
 app.post('/auth/register/', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe)
-
 app.post('/upload', checkAuth, upload.single('image'),
     (req, res) => {
         res.json({

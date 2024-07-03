@@ -6,8 +6,14 @@ import Grid from '@mui/material/Grid';
 import { Post } from '../components/Post';
 import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
+import { useDispatch } from "react-redux";
+import {fetchPosts} from "../redux/slices/posts";
 
 export const Home = () => {
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        dispatch(fetchPosts());
+    }, [])
   return (
     <>
       <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
@@ -16,7 +22,7 @@ export const Home = () => {
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>
-          {[...Array(5)].map(() => (
+          {[...Array(5)].map((el, index) => (
             <Post
               id={1}
               title="Roast the code #1 | Rock Paper Scissors"
