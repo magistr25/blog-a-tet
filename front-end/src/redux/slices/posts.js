@@ -46,7 +46,7 @@ const postSlice = createSlice({
             state.tags.items = action.payload;
             state.tags.status = 'loaded';
         },
-        [fetchTags.rejected]: (state, action) => {
+        [fetchTags.rejected]: (state) => {
             state.tags.items = [];
             state.tags.status = 'error';
         }
