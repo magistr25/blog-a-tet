@@ -57,7 +57,7 @@ export const Registration = () => {
                        error={Boolean(errors.fullName?.message)}
                        helperText={errors.fullName?.message}
                        {...register("fullName", {required: 'Укажите имя'})}
-                       fullWidth/>
+                       fullWidth />
             <TextField
                 className={styles.field}
                 label="E-Mail"
@@ -65,13 +65,13 @@ export const Registration = () => {
                 error={Boolean(errors.email?.message)}
                 helperText={errors.email?.message}
                 {...register("email", {required: 'Укажите почту'})}
-                fullWidth/>
+                fullWidth />
             <TextField className={styles.field}
                        label="Пароль"
                        error={Boolean(errors.password?.message)}
                        helperText={errors.password?.message}
                        {...register("password", {required: 'Укажите пароль'})}
-                       fullWidth/>
+                       fullWidth />
             <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
                 Зарегистрироваться
             </Button>
