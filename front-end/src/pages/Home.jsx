@@ -42,8 +42,7 @@ export const Home = () => {
                                 isEditable
                             />
                         ))}
-                    )
-                </Grid>
+                    </Grid>
                 <Grid xs={4} item>
                     <TagsBlock items={tags.items} isLoading={isTagsLoading}/>
                     <CommentsBlock

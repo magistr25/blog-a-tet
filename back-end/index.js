@@ -9,7 +9,7 @@ import multer from "multer";
 import cors from 'cors';
 
 // const uri = "mongodb+srv://magistr25:123@cluster0.ns1uise.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const uri = "mongodb://localhost:27017/test"
+const uri = "mongodb://localhost:27018/test"
 mongoose.connect(uri,
     ).then(()=>{
         console.log('MongoDB Connected')})

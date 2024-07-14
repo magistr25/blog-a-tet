@@ -29,9 +29,33 @@ export const Login = () => {
         mode: 'onChange',
     });
 
-    const onSubmit = (values) => {
-        dispatch(fetchAuthUserData(values))
+    const onSubmit = async (values) => {
+        try {
+            const data = await dispatch(fetchAuthUserData(values));
+
+            // Логируем ответ для диагностики
+            console.log('Data from fetchAuthUserData:', data);
+
+            if (data.payload) {
+                if ('token' in data.payload) {
+                    window.localStorage.setItem('token', data.payload.token);
+                } else {
+                    console.error('Токен не найден в ответе:', data.payload);
+                    return alert('Токен не найден в ответе');
+                }
+            } else {
+                console.error('Не удалось авторизоваться:', data);
+                return alert('Не удалось авторизоваться');
+            }
+        } catch (error) {
+            console.error('Error during submission:', error);
+            alert('Произошла ошибка при авторизации');
+        }
     };
+
+    console.log(isAuth);
+
+
     if (isAuth) {
         return <Navigate to="/" />
     }
